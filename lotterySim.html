@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Lottery Simulator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Akaya+Kanadaka&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <script language="javascript">
+    
+    // My random picks
+    var ranNums = new Array(5); 
+  
+    for (var i = 0; i < 5; i++) {
+      ranNums[i] = Math.floor(Math.random() * 48) + 1;
+    }
+    ranNums.sort((a,b)=>a-b);
+    
+    var ranLuckyBall = Math.floor(Math.random() * 18) + 1;
+    
+    // Prompt user picks
+    userString = prompt ("Enter your five winning numbers (between 1-48 and seperated by a space)","");
+    
+    userLuckyBall = prompt ("Enter your lucky ball number (between 1-18)","");
+    
+    var userNums = userString.split(" ").map(x=>+x);
+    userNums.sort((a,b)=>a-b);
+    
+    // Display all picks
+    document.write("<h1>Lucky For Life</h1>");
+    document.write("<div><h2>Lottery picks:");
+    for (var j = 0; j < 5; j++) {
+     document.write(" " + ranNums[j]);
+    }
+    document.write(" (" + ranLuckyBall + ")</h2>");
+    
+    document.write("<h2>Your picks:");
+    for (var q = 0; q < 5; q++) {
+     document.write(" " + userNums[q]);
+    }
+    document.write(" (" + userLuckyBall + ")</h2></div>");
+    
+    // Display matches
+    var matches = 0;
+    
+    for (var x = 0; x < 5; x++) {
+      for (var y = 0; y < 5; y++) {
+        if (ranNums[x] == userNums[y]) {
+          matches += 1;
+          break;
+        }
+      }
+    }
+    document.write("<div><h3> Matches: " + matches + "/5 </h3>");
+    
+    var luckyMatch = false;
+    if (ranLuckyBall == userLuckyBall) {
+      document.write("<h3>Lucky ball: match</h3>");
+      luckyMatch = true;
+    } else {
+      document.write("<h3>Lucky ball: no match</h3>");
+    }
+    
+    // Display payouts
+    document.write("<h3>Prize: ");
+    
+    var prizes = ["$0","$4","$0","$6","$3","$25","$20","$150","$200","$5,000","$25,000 a YEAR for LIFE","$7,000 a WEEK for LIFE"]
+    
+    var p;
+    if (luckyMatch == true) {
+      p = (matches * 2) + 1;
+    } else {
+      p = (matches * 2);
+    }
+    document.write(prizes[p] + "</h3></div>");
+    
+    </script>
+  </body>
+</html>
